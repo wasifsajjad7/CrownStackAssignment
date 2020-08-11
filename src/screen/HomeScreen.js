@@ -5,10 +5,14 @@ import AddTodo from './AddTodo';
 
 const HomeScreen = () =>{
   const [todos,setTodos] = useState([]);
+  const [count,setCount] = useState(0);
 
     const pressHandler = (key,completed) => {
+        
+        {completed ? setCount(count-1) : setCount(count+1)}
+
         setTodos((prevTodos)=>{
-            return prevTodos.map(todo => todo.key == key ? completed ?{...todo, completed : false}:{...todo, completed : true}  : todo);
+            return prevTodos.map(todo => todo.key === key ? (completed ?{...todo, completed : false}:{...todo, completed : true})  : todo);
         })
     }
 
@@ -34,6 +38,8 @@ const HomeScreen = () =>{
              />)}
             padding={8}/>
 
+            <Text style = {styles.footerTextStyle}> Total todos remaining: {count} out of {todos.length}</Text>
+
         </View>
     );
 };
@@ -48,6 +54,10 @@ const styles = StyleSheet.create({
         borderColor : '#bbb',
         borderWidth : 1,
         borderRadius:10
+      },footerTextStyle:{
+        padding:16,
+        marginTop:16,
+        fontSize : 20
       }
 });
 
